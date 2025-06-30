@@ -1,4 +1,4 @@
-const API = "http://172.16.51.38:8000";
+const API = "/api/";
 
 async function registerUser() {
   const username = document.getElementById("username").value;
