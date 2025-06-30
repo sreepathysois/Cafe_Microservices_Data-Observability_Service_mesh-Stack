@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cafe App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>☕ Cafe App</h1>
+
+  <section>
+    <h2>Register User</h2>
+    <input id="username" placeholder="Username" />
+    <input id="password" placeholder="Password" type="password" />
+    <button onclick="registerUser()">Register</button>
+  </section>
+
+  <section>
+    <h2>Products</h2>
+    <button onclick="fetchProducts()">List Products</button>
+    <ul id="productList"></ul>
+
+    <h3>Add Product (admin)</h3>
+    <input id="prodName" placeholder="Product Name" />
+    <input id="prodPrice" placeholder="Price" type="number" />
+    <button onclick="addProduct()">Add Product</button>
+  </section>
+
+  <section>
+    <h2>Cart</h2>
+    <input id="cartUserId" placeholder="User ID" />
+    <input id="cartProdId" placeholder="Product ID" />
+    <input id="cartQty" placeholder="Quantity" type="number" />
+    <button onclick="addToCart()">Add to Cart</button>
+    <button onclick="viewCart()">View Cart</button>
+    <ul id="cartList"></ul>
+  </section>
+
+  <section>
+    <h2>Orders</h2>
+    <button onclick="placeOrder()">Place Order</button>
+    <button onclick="viewOrders()">View Orders</button>
+    <ul id="orderList"></ul>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
