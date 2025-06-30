@@ -178,8 +178,13 @@ kubectl get pods -n default -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}
 
 ##### Observability Summary
 Tool	Purpose	UI Path
+
 Prometheus	Metrics collection	/prometheus
+
 Grafana	Dashboards (metrics/logs)	/grafana
+
 Jaeger	Distributed tracing	/jaeger
+
 Loki	Centralized logging	Access via Grafana
+
 Kiali	Istio mesh visualization	/kiali
