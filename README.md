@@ -57,7 +57,7 @@ Only frontend was publicly accessible via Ingress
 Folder Structure:
 
 Kubernetes_Manifests/
-├── updated_cafe_microservice_manifest_prometheus_jaeger.yaml         # All deployments and Service Files # NodePort & ClusterIP services 
+├── updated_cafe_microservice_manifest_prometheus_jaeger.yaml  # All deployments and Service Files # NodePort & ClusterIP services 
 ├── nginx_ingress_gateway_cafe_service.yaml             # Ingress rules
 
 Setup Nginx Ingress Gateway: 
@@ -113,7 +113,9 @@ Frontend → API Gateway → Products/Cart/Auth Services
 Loki installed for centralized log storage : 
 
 helm repo add grafana https://grafana.github.io/helm-charts
+
 helm repo update 
+
 helm upgrade --install loki grafana/loki-stack \
   --namespace loki --create-namespace \
   --set loki.enabled=true \
