@@ -19,6 +19,8 @@ spec:
     match:
       - uri:
           prefix: /
+    rewrite:
+      uri: /
   analysis:
     interval: 30s
     threshold: 10
