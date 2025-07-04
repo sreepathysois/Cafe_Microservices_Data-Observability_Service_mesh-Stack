@@ -200,7 +200,7 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64 
 
 
-############ Install ArgoCD on Kuberenetes Cluster
+#### Install ArgoCD on Kuberenetes Cluster
 
 kubectl create namespace argocd 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
