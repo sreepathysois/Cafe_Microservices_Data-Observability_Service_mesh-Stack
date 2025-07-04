@@ -255,7 +255,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: sreedocker123/cafemicroservicefrontend:latest
+        image: sreedocker123/cafemicroservicefrontend:v1
         ports:
         - name: http
           containerPort: 80
