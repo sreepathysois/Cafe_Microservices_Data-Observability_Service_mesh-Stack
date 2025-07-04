@@ -1,0 +1,211 @@
+# FRONTEND Canary (root /)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  service:
+    port: 80
+    gateways:
+      - istio-ingressgateway.istio-system.svc.cluster.local
+    hosts:
+      - "172.16.51.60.nip.io"
+    match:
+      - uri:
+          prefix: /
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
+---
+# API-GATEWAY Canary (/api → /)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: api-gateway
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-gateway
+  service:
+    port: 8000
+    gateways:
+      - istio-ingressgateway.istio-system.svc.cluster.local
+    hosts:
+      - "172.16.51.60.nip.io"
+    match:
+      - uri:
+          prefix: /api/
+    rewrite:
+      uri: /
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
+---
+# AUTH-SERVICE Canary (internal)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: auth-service
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: auth-service
+  service:
+    port: 3000
+    gateways:
+      - mesh
+    hosts:
+      - "*"
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
+---
+# PRODUCTS-SERVICE Canary (internal)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: products-service
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: products-service
+  service:
+    port: 3001
+    gateways:
+      - mesh
+    hosts:
+      - "*"
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
+---
+# CART-SERVICE Canary (internal)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: cart-service
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cart-service
+  service:
+    port: 3002
+    gateways:
+      - mesh
+    hosts:
+      - "*"
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
+---
+# ORDERS-SERVICE Canary (internal)
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: orders-service
+  namespace: default
+spec:
+  provider: istio
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orders-service
+  service:
+    port: 3003
+    gateways:
+      - mesh
+    hosts:
+      - "*"
+  analysis:
+    interval: 30s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        thresholdRange:
+          max: 500
+        interval: 30s
+
