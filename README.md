@@ -192,7 +192,7 @@ Kiali	Istio mesh visualization	/kiali
 
 ##### Git Ops for Continuous Deployment of Services
 
-###ArgoCD CLI Install
+### ArgoCD CLI Install
 
 
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
@@ -200,23 +200,23 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64 
 
 
-############Install ArgoCD on Kuberenetes Cluster
+############ Install ArgoCD on Kuberenetes Cluster
 
 kubectl create namespace argocd 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-###Get Login Password
+### Get Login Password
 
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d 
 
-###Edit Argocd-server-Service
+### Edit Argocd-server-Service
 kubectl edit svc argocd-server -n argocd 
 Change ClusterIP to NodePort
 
 kubectl rollout restart deployment argocd-server -n argocd 
 
 
-####Argocd Login CLI 
+#### Argocd Login CLI 
 
  sudo argocd login <nodeip:nodeport>  --username admin --password <password>
 
@@ -239,7 +239,7 @@ sudo argocd app create cafe-app \
 
 
 
-#######Argocd app list and delete
+####### Argocd app list and delete
 
 argocd app list
 argocd app delete <application-name> 
