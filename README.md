@@ -250,4 +250,30 @@ argocd app delete <application-name>
 Go to K8s/manifest file --- > Update the image and resources
 
 
+### Experiment to implement Progressive Delivery (Canary) Using Flagger, Istio Service Mesh, Gateway and Arco CD
+
+helm repo add flagger https://flagger.app
+helm repo update
+
+helm install flagger flagger/flagger \
+  --namespace istio-system \
+  --set meshProvider=istio \
+  --set metricsServer=http://prometheus.istio-system.svc.cluster.local:9090
+
+### Refere to Folder canary_flagger_istio_servicemesh_gateway 
+Consists of Deployment and Service Files. 
+Create a Flagger object corresponding to the deployment and service, anlysis strategy to test and progreess or rollout new version app
+Create argocd app. 
+
+### To validate the working of flagger
+
+istio_requests_total{destination_workload="frontend", reporter="destination"} ( prometheus Query to see istio is able to scare metrics for testing)
+
+kubectl get virtualservice frontend -n default -o yaml
+
+watch kubectl get virtualservice frontend -n default -o yaml 
+
+kubectl describe canary frontend
+
+
 
