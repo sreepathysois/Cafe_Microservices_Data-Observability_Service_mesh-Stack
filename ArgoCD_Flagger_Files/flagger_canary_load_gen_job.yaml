@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: traffic-generator
+spec:
+  template:
+    spec:
+      containers:
+      - name: curl
+        image: curlimages/curl:latest
+        args:
+        - /bin/sh
+        - -c
+        - |
+          for i in $(seq 1 200); do
+            curl -s http://frontend/ > /dev/null
+            curl -s http://api-gateway:8000/products > /dev/null
+            sleep 1
+          done
+      restartPolicy: Never
+  backoffLimit: 1
+
