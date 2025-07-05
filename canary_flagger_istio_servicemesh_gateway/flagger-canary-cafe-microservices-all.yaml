@@ -93,7 +93,7 @@ spec:
     gateways:
       - mesh
     hosts:
-      - "*"
+      - auth-service.default.svc.cluster.local
   analysis:
     interval: 30s
     threshold: 10
@@ -127,7 +127,7 @@ spec:
     gateways:
       - mesh
     hosts:
-      - "*"
+      - products-service.default.svc.cluster.local
   analysis:
     interval: 30s
     threshold: 10
@@ -161,7 +161,7 @@ spec:
     gateways:
       - mesh
     hosts:
-      - "*"
+      - cart-service.default.svc.cluster.local
   analysis:
     interval: 30s
     threshold: 10
@@ -195,7 +195,7 @@ spec:
     gateways:
       - mesh
     hosts:
-      - "*"
+      - orders-service.default.svc.cluster.local
   analysis:
     interval: 30s
     threshold: 10
