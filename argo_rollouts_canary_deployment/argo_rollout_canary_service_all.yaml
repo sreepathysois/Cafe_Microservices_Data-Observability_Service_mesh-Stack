@@ -500,7 +500,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: sreedocker123/cafemicroservicefrontend:canary1
+          image: sreedocker123/cafemicroservicefrontend:canary2
           ports:
             - containerPort: 80
   strategy:
