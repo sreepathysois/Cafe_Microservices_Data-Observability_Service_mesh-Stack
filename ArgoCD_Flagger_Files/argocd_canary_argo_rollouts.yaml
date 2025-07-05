@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cafe-microservices-rollout
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/sreepathysois/Cafe_Microservices_Data-Observability_Service_mesh-Stack.git'
+    targetRevision: HEAD
+    path: argo_rollouts_canary_deployment
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
