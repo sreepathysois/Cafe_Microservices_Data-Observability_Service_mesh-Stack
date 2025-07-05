@@ -29,11 +29,11 @@ spec:
     metrics:
       - name: request-success-rate
         thresholdRange:
-          min: 99
+          min: 5
         interval: 1m
       - name: request-duration
         thresholdRange:
-          max: 500
+          max: 5
         interval: 30s
 
 ---
