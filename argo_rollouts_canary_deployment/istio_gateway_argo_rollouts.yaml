@@ -1,0 +1,60 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: cafe-gateway
+  namespace: default
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "172.16.51.60.nip.io"  # Replace with your actual IP.nip.io
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cafe-virtualservice
+  namespace: default
+  annotations:
+    argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - "172.16.51.60.nip.io"
+  gateways:
+    - cafe-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: api-gateway-stable
+            port:
+              number: 8000
+          weight: 100
+        - destination:
+            host: api-gateway-preview
+            port:
+              number: 8000
+          weight: 0
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: frontend-stable
+            port:
+              number: 80
+          weight: 100
+        - destination:
+            host: frontend-preview
+            port:
+              number: 80
+          weight: 0
+
