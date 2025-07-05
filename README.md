@@ -273,7 +273,19 @@ kubectl get virtualservice frontend -n default -o yaml
 
 watch kubectl get virtualservice frontend -n default -o yaml 
 
-kubectl describe canary frontend
+kubectl describe canary frontend  
+
+### Workflow of Flagger Canary 
+
+Create a Deployment and Sevice. 
+Flagger operator create primary pod pointing active version (V1). Also frontend, frontend-primary and frontend-canary services are created. 
+Flagger craetes a Virtual services with weights 100 to primary service and 0% to canary service. 
+Update app image V2 in Github
+Argocd Syncs it. 
+Flagger creates a Canary pod. 
+Istio splits traffic based on weights to primary and canary. Collects metrics using prometheus to test and validate. 
+If test succesful, flagger progress ur app to V2 and making V2 as the proimary version. Deletes, frontend-canary and frontend pods. 
+
 
 
 
