@@ -1,0 +1,91 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: auth-service
+  namespace: default
+spec:
+  host: auth-service
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: cart-service
+  namespace: default
+spec:
+  host: cart-service
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: orders-service
+  namespace: default
+spec:
+  host: orders-service
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: products-service
+  namespace: default
+spec:
+  host: products-service
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: api-gateway
+  namespace: default
+spec:
+  host: api-gateway
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  host: frontend
+  subsets:
+    - name: stable
+      labels:
+        rollouts-pod-template-hash: placeholder-stable
+    - name: preview
+      labels:
+        rollouts-pod-template-hash: placeholder-preview
+
