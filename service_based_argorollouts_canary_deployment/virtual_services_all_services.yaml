@@ -1,0 +1,150 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: frontend
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - "172.16.51.60.nip.io"
+  gateways:
+    - cafe-gateway
+  http:
+    - name: http
+      match:
+        - uri:
+            prefix: /
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: frontend-stable.default.svc.cluster.local
+          weight: 100
+        - destination:
+            host: frontend-preview.default.svc.cluster.local
+          weight: 0
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: api-gateway
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - "172.16.51.60.nip.io"
+  gateways:
+    - cafe-gateway
+  http:
+    - name: http
+      match:
+        - uri:
+            prefix: /api/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: api-gateway-stable.default.svc.cluster.local
+          weight: 100
+        - destination:
+            host: api-gateway-preview.default.svc.cluster.local
+          weight: 0
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: auth-service
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - auth-service.default.svc.cluster.local
+  gateways:
+    - mesh
+  http:
+    - name: http
+      route:
+        - destination:
+            host: auth-service-stable.default.svc.cluster.local
+          weight: 100
+        - destination:
+            host: auth-service-preview.default.svc.cluster.local
+          weight: 0
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: products-service
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - products-service.default.svc.cluster.local
+  gateways:
+    - mesh
+  http:
+    - name: http
+      route:
+        - destination:
+            host: products-service-stable.default.svc.cluster.local
+          weight: 100
+        - destination:
+            host: products-service-preview.default.svc.cluster.local
+            subset: preview
+          weight: 0
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cart-service
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - cart-service.default.svc.cluster.local
+  gateways:
+    - mesh
+  http:
+    - name: http
+      route:
+        - destination:
+            host: cart-service-stable.default.svc.cluster.local
+          weight: 100
+        - destination:
+            host: cart-service-preview.default.svc.cluster.local
+          weight: 0
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: orders-service
+  namespace: default
+  annotations:
+    rollouts.argoproj.io/managed-by-rollouts: "true"
+spec:
+  hosts:
+    - orders-service.default.svc.cluster.local
+  gateways:
+    - mesh
+  http:
+    - name: http
+      route:
+        - destination:
+            host: orders-service-stable.default.svc.cluster.local
+            subset: stable
+          weight: 100
+        - destination:
+            host: orders-service-preview.default.svc.cluster.local
+          weight: 0
+
