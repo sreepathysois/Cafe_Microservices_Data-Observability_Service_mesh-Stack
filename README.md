@@ -290,33 +290,43 @@ If test succesful, flagger progress ur app to V2 and making V2 as the proimary v
 ### Implement Canary progressive Delivery using Argo Rollouts and ArgoCD
 
 Installation Steps: 
+
 kubectl create namespace argo-rollouts
+
 kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml 
 
 curl -LO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64
+
 chmod +x ./kubectl-argo-rollouts-linux-amd64
+
 sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
+
 kubectl argo rollouts version 
 
 ### Deploy Cafe Microservices using Canary Argorollouts
 
 cd service_based_argorollouts_canary_deployment 
+
 kubectl apply -f istio-ingress-gateway.yaml
+
 kubectl apply -f virtual_services_all_services.yaml
+
 kubectl apply -f argo_rollouts_services_analysis_canary_deployment.yaml
 
-Validate Deploymenmts: 
+### Validate Deploymenmts: 
 
 kubectl argo rollouts get rollout frontend
+
 kubectl get virtualservice frontend -o yaml
 
 kubectl argo rollouts dashboard ---> Access Dashboard
 
 kubectl argo rollouts get rollout frontend --watch 
 
-Trigger Canary rollout or update version of app: 
+### Trigger Canary rollout or update version of app: 
 
 cd ArgoCD_Flagger_Files && kubectl apply -f argocd_canary_argo_rollouts.yaml 
+
                    or
 
 Change Image tag in argo_rollouts_services_analysis_canary_deployment.yaml from canary1 to canry2 for frontend service. 
